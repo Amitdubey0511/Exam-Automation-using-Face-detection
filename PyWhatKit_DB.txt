@@ -1,0 +1,10 @@
+Date: 11/4/2024
+Time: 14:50
+Phone Number: +916377688671
+Message: Hello from Python! This is an instant WhatsApp message.
+--------------------
+Date: 11/4/2024
+Time: 14:52
+Phone Number: +916377688671
+Message: Hello from Python! This is an instant WhatsApp message.
+--------------------

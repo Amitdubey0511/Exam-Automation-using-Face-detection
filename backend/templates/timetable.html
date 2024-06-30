@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Timetable</title>
+    <!-- MATERIAL ICONS -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href= "{{ url_for('static',filename='studentDetails.css') }}"/>
+  </head>
+  <body>
+    <div class="container">
+      <aside>
+        <div class="top">
+          <div class="close" id="close-btn">
+            <span class="material-icons-sharp">close</span>
+          </div>
+        </div>
+        <div class="profile">
+          <div class="profile-photo">
+            <img src="{{ url_for('static',filename=name ~ '.jpg') }}" alt="" />
+          </div>
+          <div class="info">
+            <p><b>{{name}}</b></p>
+            <small class="text-muted">Student</small>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <a href="/studentDetails">
+            <span class="material-icons-sharp">grid_view</span>
+            <h3>Dashboard</h3>
+          </a>
+          <a href="#" class="active">
+            <span class="material-icons-sharp">table_view</span>
+            <h3>Time Table</h3>
+          </a>
+          <a href="/admitcard">
+            <span class="material-icons-sharp">description</span>
+            <h3>Admit Card</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">mail_outline</span>
+            <h3>Notifications</h3>
+            <span class="message-count">26</span>
+          </a>
+          <a href="https://mbmiums.in/(S(ytlgvlzby5mrbx5ooqb0d2ez))/Results/ExamResult.aspx" target="_blank">
+            <span class="material-icons-sharp">fact_check</span>
+            <h3>Result</h3>
+          </a>
+          <a onclick="window.location='http://localhost:5000/dropsession'" type="submit">
+            <span class="material-icons-sharp">logout</span>
+            <h3>Logout</h3>
+          </a>
+        </div>
+      </aside>
+
+      <!-- -------------------END OF ASIDE(left sidebar)----------- -->
+      <main>
+        <div class="mbm_logo">
+          <img
+            style="width: 6.5rem; height: 6.5rem"
+            src="{{ url_for('static',filename='MBM_Logo.png') }}"
+            alt=""
+          />
+          <div>
+            <h2 style="font-size: 25px">
+              MBM UNIVERSITY, JODHPUR
+              <br />
+            </h2>
+            <h2 style="font-size: 25px; margin-left: -25px">
+              एम बी एम विश्वविद्यालय, जोधपुर
+            </h2>
+            <p style="padding-left: 3px">State University Govt. of Rajasthan</p>
+          </div>
+        </div>
+        <div class="recent-orders">
+          <table>
+            <thead>
+              <tr>
+                <th>S. No.</th>
+                <th>Subject</th>
+                <th>Subject Code</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for index,row in table %}
+               <tr>
+                 <td>{{index+1}}</td>
+                 <td>{{row["paper_name"]}}</td>
+                 <td>{{row["papercode"]}}</td>
+                 <td>{{row["examday"]}}</td>
+                 <td class="primary">11:00 AM</td>
+                 <td class="warning">{{row["attend"]}}</td>
+               </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+        <!-------------------- END OF INSIGHTS --------------------->
+      </main>
+      <!-- --------------------END OF MAIN --------------------->
+
+      <div class="right">
+        <div class="top">
+          <button id="menu-btn">
+            <span class="material-icons-sharp">menu</span>
+          </button>
+
+          <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+          </div>
+        </div>
+        <!-- --------------END OF TOP------------- -->
+
+        <div class="recent-updates">
+          <h2>Notifications</h2>
+          <div class="updates">
+            <div class="update">
+              <div style="overflow: visible;" class="profile-photo">
+                <img src="{{ url_for('static',filename='pdf.png') }}" alt="" />
+              </div>
+              <div class="message">
+                <p>OFFICE ORDER ODD SEMESTER SPECIAL EXAM 2023</p>
+                <small class="text-muted">05/10/2023</small>
+              </div>
+            </div>
+
+            <div class="update">
+              <div style="overflow: visible;" class="profile-photo">
+                <img src="{{ url_for('static',filename='pdf.png') }}" alt="" />
+              </div>
+              <div class="message">
+                <p>
+                  NOTIFICATION REGARDING BE CBCS SEM VIIITH 2023 EXAMINATION
+                  FORMS.
+                </p>
+                <small class="text-muted">04/05/2023</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ----------------------END OF RECENT UPDATES--------->
+      </div>
+    </div>
+
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student List</title>
+    <!-- MATERIAL ICONS -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='studentDetails.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <aside>
+        <div class="top">
+          <div class="close" id="close-btn">
+            <span class="material-icons-sharp">close</span>
+          </div>
+        </div>
+        <div class="profile">
+          <div class="profile-photo">
+            <img src="{{ url_for('static',filename=name ~ '.jpg') }}" alt="" />
+          </div>
+          <div class="info">
+            <p><b>{{name}}</b></p>
+            <small class="text-muted">Teacher</small>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <a href="/teacherDetails">
+            <span class="material-icons-sharp">grid_view</span>
+            <h3>Dashboard</h3>
+          </a>
+          <a href="#" class="active">
+            <span class="material-icons-sharp">table_view</span>
+            <h3>Student List</h3>
+          </a>
+          
+          <a
+            onclick="window.location='http://localhost:5000/dropsession'"
+            type="submit"
+          >
+            <span class="material-icons-sharp">logout</span>
+            <h3>Logout</h3>
+          </a>
+        </div>
+      </aside>
+
+      <!-- -------------------END OF ASIDE(left sidebar)----------- -->
+      <main>
+        <div class="mbm_logo">
+          <img
+            style="width: 6.5rem; height: 6.5rem"
+            src="{{ url_for('static',filename='MBM_Logo.png') }}"
+            alt=""
+          />
+          <div>
+            <h2 style="font-size: 25px">
+              MBM UNIVERSITY, JODHPUR
+              <br />
+            </h2>
+            <h2 style="font-size: 25px; margin-left: -25px">
+              एम बी एम विश्वविद्यालय, जोधपुर
+            </h2>
+            <p style="padding-left: 3px">
+              State University Govt. of Rajasthan
+            </p>
+          </div>
+        </div>
+        <div class="recent-orders">
+          <table>
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Roll No.</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Paper Code</th>
+                <th>Take Picture</th>
+                <th style="padding: 25px;">Attendance</th>
+              </tr>
+            </thead>
+            <tbody>
+               {% for index,row in list %}
+                 <tr>
+                 <td>{{index+1}}</td>
+                 <form action="/capture_attendance" method="post" class="form">
+                 <td><input type="text" name="stroll" value= "{{row["rollno"]}}" readonly > </td>
+                 <td><input type="text" name="stname" value= "{{row["name"]}}" readonly ></td>
+                 <td>{{row["branch"]}}</td>
+                 <td><input type="text" name="papercode" value= "{{row["Papercode"]}}" readonly ></td>
+                 <td class="column"><button type="submit"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJjb2xvcjpjdXJyZW50Q29sb3IiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgY2xhc3M9ImgtZnVsbCB3LWZ1bGwiPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB4PSIwIiB5PSIwIiByeD0iMzAiIGZpbGw9InRyYW5zcGFyZW50IiBzdHJva2U9InRyYW5zcGFyZW50IiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1vcGFjaXR5PSIxMDAlIiBwYWludC1vcmRlcj0ic3Ryb2tlIj48L3JlY3Q+PHN2ZyB3aWR0aD0iMjU2cHgiIGhlaWdodD0iMjU2cHgiIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIGZpbGw9ImN1cnJlbnRDb2xvciIgeD0iMTI4IiB5PSIxMjgiIHJvbGU9ImltZyIgc3R5bGU9ImRpc3BsYXk6aW5saW5lLWJsb2NrO3ZlcnRpY2FsLWFsaWduOm1pZGRsZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJjdXJyZW50Q29sb3IiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTg2NCAyNDhINzI4bC0zMi40LTkwLjhhMzIuMDcgMzIuMDcgMCAwIDAtMzAuMi0yMS4ySDM1OC42Yy0xMy41IDAtMjUuNiA4LjUtMzAuMSAyMS4yTDI5NiAyNDhIMTYwYy00NC4yIDAtODAgMzUuOC04MCA4MHY0NTZjMCA0NC4yIDM1LjggODAgODAgODBoNzA0YzQ0LjIgMCA4MC0zNS44IDgwLTgwVjMyOGMwLTQ0LjItMzUuOC04MC04MC04MHptOCA1MzZjMCA0LjQtMy42IDgtOCA4SDE2MGMtNC40IDAtOC0zLjYtOC04VjMyOGMwLTQuNCAzLjYtOCA4LThoMTg2LjdsMTcuMS00Ny44bDIyLjktNjQuMmgyNTAuNWwyMi45IDY0LjJsMTcuMSA0Ny44SDg2NGM0LjQgMCA4IDMuNiA4IDh2NDU2ek01MTIgMzg0Yy04OC40IDAtMTYwIDcxLjYtMTYwIDE2MHM3MS42IDE2MCAxNjAgMTYwczE2MC03MS42IDE2MC0xNjBzLTcxLjYtMTYwLTE2MC0xNjB6bTAgMjU2Yy01MyAwLTk2LTQzLTk2LTk2czQzLTk2IDk2LTk2czk2IDQzIDk2IDk2cy00MyA5Ni05NiA5NnoiPjwvcGF0aD48L2c+PC9zdmc+PC9zdmc+" alt="camera-outlined" style="color:currentColor"></img> </button></td>
+                 <td>{{row["attendance"]}}</td>
+                 </form>
+                 </tr>
+               {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+        <!-------------------- END OF INSIGHTS --------------------->
+      </main>
+      <!-- --------------------END OF MAIN --------------------->
+
+      <div style="margin-right: 70px;" class="right">
+        <div class="top">
+          <button id="menu-btn">
+            <span class="material-icons-sharp">menu</span>
+          </button>
+
+          <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+          </div>
+        </div>
+        <!-- --------------END OF TOP------------- -->
+
+      </div>
+    </div>
+
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+  </body>
+</html>
